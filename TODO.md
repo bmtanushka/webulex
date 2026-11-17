@@ -13,8 +13,9 @@ Next: Phase 5 (contact, forms, booking, analytics) → 6 (content and trust page
 - [ ] **Point webulexpro.com's DNS at Hostinger.** The domain is not registered in the Hostinger account, so change it at the current registrar: either Hostinger's nameservers, or an A record to the website's IP shown in hPanel. *(The empty website was created on the jello.lk plan on 17 Nov 2026; the other sites on that plan were not touched.)*
 - [ ] **Turn on free SSL** for webulexpro.com in hPanel once DNS points to Hostinger.
 - [ ] **Set PHP to 8.2 or later** for webulexpro.com (hPanel → Advanced → PHP Configuration) and enable `curl`, `mbstring`, `openssl`, `fileinfo`.
-- [ ] **Create a private GitHub repo** and tell Claude its name. Hostinger's tools deploy from Git, and the cloud container this site is built in is temporary.
-- [ ] **Connect GitHub to Hostinger once** in hPanel → Advanced → Git, so deploys can run from the repo.
+- [x] **GitHub repo:** `bmtanushka/webulex`. All work is pushed to `main` at the end of each phase.
+- [ ] **Check the repo is private** on GitHub (Settings → General → Danger Zone → Change visibility), since it will hold the site's code.
+- [ ] **Connect GitHub to Hostinger once** in hPanel → Advanced → Git, so deploys can run from the repo. The web root is `public_html/`, so Phase 8 will publish a `deploy` branch containing only that folder's contents.
 - [ ] **Confirm the live deploy** when asked (Phase 8). Nothing is uploaded to the live domain without your go-ahead.
 - [ ] **Upload `config.php`** one level above `public_html` with the real secrets (template: `config.sample.php`). Claude will guide this in Phase 8.
 - [ ] **Submit the sitemap** in Google Search Console after launch.
