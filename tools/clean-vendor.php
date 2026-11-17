@@ -6,7 +6,7 @@ declare(strict_types=1);
 // docs, examples, tests and helper scripts. Only src/ code, licences and autoload stay.
 
 $vendor = __DIR__ . '/../public_html/vendor';
-$remove = ['.git', '.github', '.gitignore', '.gitattributes', '.editorconfig', 'docs', 'examples', 'test', 'tests', 'get_oauth_token.php', 'phpunit.xml.dist', 'phpcs.xml.dist', 'phpdoc.dist.xml'];
+$remove = ['.git', '.github', '.gitignore', '.gitattributes', '.editorconfig', '.phan', 'docs', 'examples', 'test', 'tests', 'get_oauth_token.php', 'phpunit.xml.dist', 'phpcs.xml.dist', 'phpdoc.dist.xml'];
 
 function rrmdir(string $path): void
 {
