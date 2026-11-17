@@ -12,7 +12,7 @@ $industries = content('industries');
       <p>Websites, marketing and AI-powered automation for small businesses in the US, UK, Singapore and Australia.</p>
       <ul role="list" class="site-footer__contact">
         <li><a href="tel:<?= e($s['phone_e164']) ?>"><?= icon('phone') ?> <?= e($s['phone_display']) ?></a></li>
-        <li><a href="<?= e(whatsapp_url('footer')) ?>" rel="noopener"><?= icon('message-circle') ?> WhatsApp</a></li>
+        <li><a href="<?= e(whatsapp_url('footer')) ?>" rel="noopener" data-event="whatsapp_click"><?= icon('message-circle') ?> WhatsApp</a></li>
         <li><a href="mailto:<?= e($s['email']) ?>"><?= icon('mail') ?> <?= e($s['email']) ?></a></li>
       </ul>
     </div>
@@ -62,6 +62,7 @@ $industries = content('industries');
       <li><a href="/privacy">Privacy</a></li>
       <li><a href="/cookies">Cookies</a></li>
       <li><a href="/terms">Terms</a></li>
+      <li><button type="button" class="link-btn" data-cookie-settings>Cookie settings</button></li>
     </ul>
   </div>
 </footer>

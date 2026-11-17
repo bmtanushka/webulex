@@ -23,7 +23,7 @@ const check = (ok, msg) => {
     '/packages': 200, '/packages/complete-business-launch': 200, '/packages/starter-online-presence': 200,
     '/packages/growth-marketing-plan': 200, '/packages/ai-sales-assistant': 200, '/packages/ecommerce-launch': 200, '/packages/nope': 404,
     '/industries': 200, '/industries/cleaning-companies': 200, '/industries/handyman-services': 200, '/industries/sole-traders': 200, '/industries/nope': 404,
-    '/regions/uk': 200, '/contact': 200, '/definitely-not-a-page': 404,
+    '/regions/uk': 200, '/contact': 200, '/free-consultation': 200, '/api/lead.php': 405, '/definitely-not-a-page': 404,
     '/app/helpers.php': 403, '/content/site.php': 403, '/templates/layout.php': 403, '/robots.txt': 200,
   };
   for (const [path, status] of Object.entries(expect)) {
@@ -77,7 +77,7 @@ const check = (ok, msg) => {
   // axe on key templates at desktop and mobile
   for (const width of [375, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ['/', '/services', '/services/grow', '/services/seo', '/packages', '/packages/complete-business-launch', '/packages/ai-sales-assistant', '/industries', '/industries/cleaning-companies', '/definitely-not-a-page']) {
+    for (const path of ['/', '/services', '/services/grow', '/services/seo', '/packages', '/packages/complete-business-launch', '/packages/ai-sales-assistant', '/industries', '/industries/cleaning-companies', '/contact', '/free-consultation', '/definitely-not-a-page']) {
       await page.goto(BASE + path, { waitUntil: 'networkidle' });
       const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
       const serious = res.violations.filter((v) => ['serious', 'critical'].includes(v.impact));

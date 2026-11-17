@@ -35,7 +35,7 @@ $GLOBALS['page_meta'] = [
       <h1 class="page-hero__title--service"><?= e($s['title']) ?></h1>
       <p class="page-hero__sub"><?= e($s['description']) ?></p>
       <div class="hero__ctas">
-        <a class="btn btn--accent" href="/contact?service=<?= e($s['slug']) ?>" data-event="generate_lead_click">Get a quote <?= icon('arrow-right') ?></a>
+        <a class="btn btn--accent" href="/contact?service=<?= e($s['slug']) ?>">Get a quote <?= icon('arrow-right') ?></a>
         <a class="btn btn--ghost-light" href="/free-consultation" data-event="book_consultation_click">Book a free consultation</a>
       </div>
     </div>

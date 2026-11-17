@@ -355,3 +355,47 @@
 .industry-hero-art__chip--0 { left: 6%; top: 8%; }
 .industry-hero-art__chip--1 { right: 5%; top: 58%; }
 .industry-hero-art__chip--2 { left: 8%; bottom: 6%; }
+
+/* ---------- Contact & consultation (Phase 5) ---------- */
+.page-hero--compact { padding-block: clamp(3rem, 2rem + 3vw, 5rem); }
+.page-hero--consult { padding-block: clamp(3rem, 2rem + 3vw, 5rem); }
+.page-hero--consult h1 { max-width: 22ch; }
+.consult-benefits { display: grid; gap: .75rem; margin-top: 1.5rem; }
+.consult-benefits li { display: flex; gap: .75rem; align-items: center; font-size: 1.1rem; color: rgb(255 255 255 / .92); }
+.consult-benefits .icon { flex: none; width: 34px; height: 34px; padding: 7px; border-radius: 10px; background: rgb(41 182 246 / .18); color: var(--cyan-500); }
+@media (min-width: 900px) { .consult-benefits { grid-template-columns: repeat(3, 1fr); } }
+
+.contact-layout { display: grid; gap: 1.5rem; align-items: start; }
+@media (min-width: 1024px) { .contact-layout { grid-template-columns: 1.5fr 1fr; } .contact-layout--consult { grid-template-columns: 1.2fr 1fr; } }
+.contact-side { display: grid; gap: 1.5rem; }
+.form-card__title { font-size: 1.5rem; margin-bottom: 1.25rem; }
+.form-card__intro { color: var(--ink-500); margin-top: -.75rem; }
+.contact-methods { border-top-color: var(--magenta-500); }
+.contact-methods__title { font-size: 1.25rem; margin-bottom: 1rem; }
+.contact-methods ul { display: grid; gap: .5rem; }
+.contact-methods a, .contact-methods__static { display: flex; gap: .85rem; align-items: center; padding: .5rem; margin-inline: -.5rem; border-radius: 12px; color: var(--ink-900); text-decoration: none; }
+.contact-methods a:hover { background: var(--surface-50); color: var(--ink-900); }
+.contact-methods .icon-tile { width: 44px; height: 44px; border-radius: 12px; }
+.contact-methods .icon-tile .icon { width: 20px; height: 20px; }
+.contact-methods strong { display: block; font-size: .85rem; color: var(--ink-500); font-weight: 600; }
+.contact-methods__note { margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .925rem; color: var(--ink-500); }
+
+.booking__title { display: flex; align-items: center; gap: .5rem; font-size: 1.25rem; margin-bottom: 1rem; }
+.booking__title .icon { color: var(--cyan-500); }
+.booking__frame { min-height: 640px; border-radius: 12px; overflow: hidden; background: var(--surface-50); display: grid; place-items: center; }
+.booking__frame iframe { width: 100%; height: 640px; border: 0; }
+.booking__loading { color: var(--ink-500); }
+.booking__alt { margin: .75rem 0 0; font-size: .9rem; }
+.booking__fallback { color: var(--ink-500); }
+
+.form-success { text-align: center; border-top-color: #16A34A; padding: clamp(2rem, 1.5rem + 2vw, 3rem); }
+.form-success__icon { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: #DCFCE7; color: #15803D; margin-bottom: 1rem; }
+.form-success__icon .icon { width: 32px; height: 32px; }
+.form-success h2 { font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem); }
+.form-success p { color: var(--ink-500); max-width: 48ch; margin-inline: auto; }
+.form-success .hero__ctas { justify-content: center; margin: 1.5rem 0 0; }
+.form-success:focus { outline: none; }
+
+.site-header--minimal .site-header__inner { justify-content: space-between; }
+.site-footer--minimal { padding-top: 0; }
+.site-footer--minimal .site-footer__legal { margin-top: 0; border-top: 0; }

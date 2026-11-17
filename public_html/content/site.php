@@ -40,6 +40,9 @@ return [
         ['label' => 'Blog', 'href' => '/blog'],
     ],
 
+    // TODO(owner): confirm working hours (Sri Lanka time). Used for the "We're online now" note on the contact page.
+    'working_hours' => ['start' => 9, 'end' => 18, 'days' => [1, 2, 3, 4, 5]],
+
     // TODO(owner): add social media profile URLs, e.g. 'facebook' => 'https://…'
     'social' => [],
 ];

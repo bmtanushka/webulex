@@ -23,6 +23,10 @@ return [
     'LEAD_NOTIFY_TO' => 'info@webulexpro.com',
     'FORM_TEST_MODE' => false,      // true: skips Turnstile, n8n and email (local tests)
 
+    // Set to true only when the site is behind Cloudflare: then the visitor's country (CF-IPCountry)
+    // pre-selects the form's country and CF-Connecting-IP is used for rate limiting.
+    'TRUST_CLOUDFLARE' => false,
+
     // Integrations
     'BOOKING_URL' => '',            // Cal.com or Calendly link
     'CHATBOT_SCRIPT_URL' => '',
