@@ -1,0 +1,11 @@
+/config.php
+/storage/logs/*
+!/storage/logs/.gitkeep
+/tools/node_modules/
+/node_modules/
+/test-results/
+/playwright-report/
+*.zip
+
+# Review screenshots (local only)
+/review/

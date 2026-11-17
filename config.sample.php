@@ -1,0 +1,30 @@
+<?php
+declare(strict_types=1);
+
+// Copy to config.php ONE LEVEL ABOVE public_html on the server
+// (e.g. /home/USER/domains/webulexpro.com/config.php). Never commit the real file.
+
+return [
+    'DEV' => false,                 // true locally: shows errors, loads the unbundled CSS
+
+    // Feature flags (keep false until the owner supplies real content)
+    'SHOW_TESTIMONIALS' => false,
+    'SHOW_TEAM' => false,
+    'SHOW_PRICES' => false,
+
+    // Forms (Phase 5)
+    'N8N_LEAD_WEBHOOK_URL' => '',
+    'TURNSTILE_SITE_KEY' => '',
+    'TURNSTILE_SECRET' => '',
+    'SMTP_HOST' => 'smtp.hostinger.com',
+    'SMTP_PORT' => 465,
+    'SMTP_USER' => 'info@webulexpro.com',
+    'SMTP_PASS' => '',
+    'LEAD_NOTIFY_TO' => 'info@webulexpro.com',
+    'FORM_TEST_MODE' => false,      // true: skips Turnstile, n8n and email (local tests)
+
+    // Integrations
+    'BOOKING_URL' => '',            // Cal.com or Calendly link
+    'CHATBOT_SCRIPT_URL' => '',
+    'GA4_ID' => '',                 // G-XXXXXXX
+];

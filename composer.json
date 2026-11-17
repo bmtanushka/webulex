@@ -1,0 +1,13 @@
+{
+  "name": "webulex/website",
+  "description": "Webulex marketing website (plain PHP, no framework)",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.2"
+  },
+  "config": {
+    "vendor-dir": "public_html/vendor",
+    "platform": { "php": "8.2.0" }
+  }
+}

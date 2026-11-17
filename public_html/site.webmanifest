@@ -1,0 +1,9 @@
+{
+  "name": "Webulex",
+  "short_name": "Webulex",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#141A4A",
+  "theme_color": "#141A4A",
+  "icons": [{ "src": "/assets/brand/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
