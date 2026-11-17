@@ -15,7 +15,7 @@ if (PHP_SAPI === 'cli-server') {
         echo 'Forbidden';
         return true;
     }
-    if ($p !== '/' && is_file(__DIR__ . $p) && !str_ends_with($p, '.php')) {
+    if ($p !== '/' && is_file(__DIR__ . $p) && (!str_ends_with($p, '.php') || str_starts_with($p, '/api/'))) {
         return false;
     }
 }
@@ -37,4 +37,7 @@ http_response_code($match['status']);
 header('Content-Type: text/html; charset=UTF-8');
 
 $body = render($match['template'], $match['vars']);
-echo render('layout', $match['vars'] + ['body' => $body, 'meta' => $GLOBALS['page_meta'] ?? []]);
+$html = render('layout', $match['vars'] + ['body' => $body, 'meta' => $GLOBALS['page_meta'] ?? []]);
+// Pages with forms carry a per-visitor CSRF token, so they must never be cached.
+header(!empty($GLOBALS['page_meta']['forms']) ? 'Cache-Control: no-store' : 'Cache-Control: no-cache');
+echo $html;

@@ -12,6 +12,8 @@ function route(string $path): array
         '/services' => ['pages/services', ['page_name' => 'Services']],
         '/packages' => ['pages/packages', ['page_name' => 'Packages']],
         '/industries' => ['pages/industries', ['page_name' => 'Industries']],
+        '/contact' => ['pages/contact', ['page_name' => 'Contact']],
+        '/free-consultation' => ['pages/free-consultation', ['page_name' => 'Free consultation']],
     ];
 
     if (isset($static[$path])) {
@@ -59,8 +61,6 @@ function planned_pages(): array
         '/how-we-work' => 'How we work',
         '/about' => 'About Webulex',
         '/blog' => 'Blog',
-        '/contact' => 'Contact',
-        '/free-consultation' => 'Book a free consultation',
         '/privacy' => 'Privacy policy',
         '/terms' => 'Terms of use',
         '/cookies' => 'Cookie policy',

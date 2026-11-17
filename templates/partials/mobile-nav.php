@@ -37,7 +37,7 @@ $industries = content('industries');
     </ul>
     <div class="mobile-nav__cta">
       <a class="btn btn--accent" href="/free-consultation">Book a free consultation</a>
-      <a class="btn btn--ghost-light" href="<?= e(whatsapp_url('menu')) ?>" rel="noopener"><?= icon('message-circle') ?> WhatsApp us</a>
+      <a class="btn btn--ghost-light" href="<?= e(whatsapp_url('menu')) ?>" rel="noopener" data-event="whatsapp_click"><?= icon('message-circle') ?> WhatsApp us</a>
     </div>
     <a class="mobile-nav__close" href="#top" data-menu-close><?= icon('x') ?> Close menu</a>
   </nav>
