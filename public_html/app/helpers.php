@@ -253,3 +253,33 @@ function tier_rows(array $tiers): array
     }
     return $rows;
 }
+
+/** "17 November 2026", or "November 17, 2026" for US English pages. */
+function format_date(string $ymd, bool $us = false): string
+{
+    $d = DateTimeImmutable::createFromFormat('!Y-m-d', $ymd);
+    if (!$d) {
+        return $ymd;
+    }
+    return $us ? $d->format('F j, Y') : $d->format('j F Y');
+}
+
+/**
+ * A client's 9:00–17:00 working day shown in Sri Lanka time, for today's date (daylight saving included).
+ * @return array{local:string, colombo:string, offset:string}
+ */
+function zone_row(string $tz, int $startHour = 9, int $endHour = 17): array
+{
+    $zone = new DateTimeZone($tz);
+    $lk = new DateTimeZone('Asia/Colombo');
+    $start = (new DateTimeImmutable('today', $zone))->setTime($startHour, 0);
+    $end = $start->setTime($endHour, 0);
+    $s = $start->setTimezone($lk);
+    $e = $end->setTimezone($lk);
+    $dayNote = $s->format('Y-m-d') !== $start->format('Y-m-d') ? ($s > $start ? ' (next day)' : ' (previous day)') : '';
+    return [
+        'local' => $start->format('H:i') . '–' . $end->format('H:i'),
+        'colombo' => $s->format('H:i') . '–' . $e->format('H:i') . $dayNote,
+        'offset' => 'GMT' . $start->format('P'),
+    ];
+}

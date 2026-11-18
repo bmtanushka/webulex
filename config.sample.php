@@ -11,6 +11,8 @@ return [
     'SHOW_TESTIMONIALS' => false,
     'SHOW_TEAM' => false,
     'SHOW_PRICES' => false,
+    'SHOW_DRAFTS' => false,        // true locally: list draft blog posts on /blog
+    'LEGAL_REVIEWED' => false,     // true once a lawyer has approved the legal pages (removes the draft notice)
 
     // Forms (Phase 5)
     'N8N_LEAD_WEBHOOK_URL' => '',

@@ -23,7 +23,9 @@ const check = (ok, msg) => {
     '/packages': 200, '/packages/complete-business-launch': 200, '/packages/starter-online-presence': 200,
     '/packages/growth-marketing-plan': 200, '/packages/ai-sales-assistant': 200, '/packages/ecommerce-launch': 200, '/packages/nope': 404,
     '/industries': 200, '/industries/cleaning-companies': 200, '/industries/handyman-services': 200, '/industries/sole-traders': 200, '/industries/nope': 404,
-    '/regions/uk': 200, '/contact': 200, '/free-consultation': 200, '/api/lead.php': 405, '/definitely-not-a-page': 404,
+    '/regions/us': 200, '/regions/uk': 200, '/regions/sg': 200, '/regions/au': 200, '/regions/xx': 404,
+    '/how-we-work': 200, '/about': 200, '/blog': 200, '/blog/what-is-aieo': 200, '/blog/nope': 404,
+    '/privacy': 200, '/terms': 200, '/cookies': 200, '/contact': 200, '/free-consultation': 200, '/api/lead.php': 405, '/definitely-not-a-page': 404,
     '/app/helpers.php': 403, '/content/site.php': 403, '/templates/layout.php': 403, '/robots.txt': 200,
   };
   for (const [path, status] of Object.entries(expect)) {
@@ -77,13 +79,19 @@ const check = (ok, msg) => {
   // axe on key templates at desktop and mobile
   for (const width of [375, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ['/', '/services', '/services/grow', '/services/seo', '/packages', '/packages/complete-business-launch', '/packages/ai-sales-assistant', '/industries', '/industries/cleaning-companies', '/contact', '/free-consultation', '/definitely-not-a-page']) {
+    for (const path of ['/', '/services', '/services/grow', '/services/seo', '/packages', '/packages/complete-business-launch', '/packages/ai-sales-assistant', '/industries', '/industries/cleaning-companies', '/contact', '/free-consultation', '/how-we-work', '/about', '/regions/us', '/blog', '/blog/local-seo-for-cleaning-companies', '/privacy', '/definitely-not-a-page']) {
       await page.goto(BASE + path, { waitUntil: 'networkidle' });
       const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
       const serious = res.violations.filter((v) => ['serious', 'critical'].includes(v.impact));
       check(serious.length === 0, `axe ${path} @${width}px: ${serious.map((v) => v.id + ' (' + v.nodes.length + ')').join(', ') || 'no serious issues'}`);
     }
   }
+
+  // hreflang only between home and regional pages; US page uses en-US
+  await page.goto(BASE + '/regions/us');
+  check((await page.getAttribute('html', 'lang')) === 'en-US' && (await page.locator('link[hreflang]').count()) === 5, 'US page is en-US with 5 hreflang links');
+  await page.goto(BASE + '/services');
+  check((await page.locator('link[hreflang]').count()) === 0, 'non-regional pages have no hreflang');
 
   // Comparison table: tabs on phones, full table on desktop
   await page.setViewportSize({ width: 375, height: 900 });

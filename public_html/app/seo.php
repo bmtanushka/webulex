@@ -30,7 +30,10 @@ function seo(array $meta): string
     $out[] = '<meta property="og:description" content="' . e($description) . '">';
     $out[] = '<meta property="og:url" content="' . e($canonical) . '">';
     $out[] = '<meta property="og:image" content="' . e($image) . '">';
-    $out[] = '<meta property="og:locale" content="en_GB">';
+    $out[] = '<meta property="og:locale" content="' . e(str_replace('-', '_', (string) ($meta['lang'] ?? 'en-GB'))) . '">';
+    foreach ((array) ($meta['alternates'] ?? []) as $hreflang => $altPath) {
+        $out[] = '<link rel="alternate" hreflang="' . e((string) $hreflang) . '" href="' . e(absolute_url((string) $altPath)) . '">';
+    }
     $out[] = '<meta name="twitter:card" content="summary_large_image">';
 
     foreach ((array) ($meta['schema'] ?? []) as $schema) {
@@ -66,4 +69,15 @@ function schema_organization(): array
         ],
         'areaServed' => ['US', 'GB', 'SG', 'AU', 'LK'],
     ];
+}
+
+/** hreflang alternates: only between the home page and the regional landing pages (BRIEF.md §7.9). */
+function region_alternates(): array
+{
+    $alts = [];
+    foreach (content('regions') as $code => $r) {
+        $alts[$r['hreflang']] = '/regions/' . $code;
+    }
+    $alts['x-default'] = '/';
+    return $alts;
 }

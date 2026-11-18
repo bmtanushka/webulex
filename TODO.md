@@ -3,8 +3,8 @@
 Everything that is waiting on the owner, or deferred until later, in one place.
 Tick items off as they are done. Updated at the end of every build phase.
 
-**Build progress:** Phases 1–5 done (foundation, home, services, packages and industries, contact and forms).
-Next: Phase 6 (content and trust pages) → 7 (SEO and hardening) → 8 (deploy).
+**Build progress:** Phases 1–6 done (foundation, home, services, packages and industries, contact and forms, content and trust pages).
+Next: Phase 7 (SEO, AIEO and hardening) → 8 (deploy).
 
 ---
 
@@ -36,12 +36,12 @@ The forms are built and tested in test mode. Each feature switches on as soon as
 
 ## 3. Facts to confirm (shown on the site as draft wording)
 
-- [ ] **Working hours and time-zone overlap** for each region. Draft lines on the home page region tiles: "US: your morning, with flexible evening calls", "UK: your morning and early afternoon", "Singapore: most of your working day", "Australia: your afternoon". → `public_html/content/home.php`
+- [ ] **Working hours and time-zone overlap** for each region. ⚠ The time-zone table on `/how-we-work` and the regional pages shows that a US 09:00–17:00 day is 19:30–03:30 in Sri Lanka. Confirm the hours you will actually cover for US clients, then adjust the US wording. Draft lines on the home page region tiles: "US: your morning, with flexible evening calls", "UK: your morning and early afternoon", "Singapore: most of your working day", "Australia: your afternoon". → `public_html/content/home.php`
 - [ ] **Reply-time promise:** "within one business day" now appears on the contact page, the form, the thank-you message and the confirmation email.
 - [ ] **Working hours (Sri Lanka time)** for the "We're online now" note on the contact page. Draft: Mon–Fri 09:00–18:00. → `working_hours` in `public_html/content/site.php`
 - [ ] **Invoicing currencies** (FAQ says USD, GBP, SGD or AUD) and payment methods. → `public_html/content/faqs.php`
 - [ ] **Prices** per package and per industry tier, in each currency if they differ. All packages show "Price on request" until then. → add `'prices'` in `public_html/content/packages.php` / `industries.php`, then set `SHOW_PRICES => true` in `config.php`.
-- [ ] **Accounting services:** the company name includes "Accounting". Decide whether to add bookkeeping and cloud accounting as a service area, or explain the name on the About page (Phase 6).
+- [ ] **Accounting services:** the company name includes "Accounting". Decide whether to add bookkeeping and cloud accounting as a service area, or a line explaining the name on the About page (not added yet).
 
 ## 4. Content to review (drafted by Claude, marked `REVIEW(owner)` in the files)
 
@@ -54,6 +54,11 @@ The forms are built and tested in test mode. Each feature switches on as soon as
 - [ ] **Industry hero labels** (illustrative notification chips such as "New booking · Fri 09:00"). → `public_html/content/industries.php`
 - [ ] Page titles and descriptions: written to fit search limits; check the wording reads well for you.
 
+- [ ] **About page story** (3 paragraphs). → `public_html/templates/pages/about.php`
+- [ ] **How we work:** expanded step descriptions and the four commitments (reply within one business day, weekly update, shared project board, you own everything). → `public_html/templates/pages/how-we-work.php`
+- [ ] **Regional pages** (US, UK, Singapore, Australia): intro, three focus points, time-zone note and 3 FAQs each. Each is 70–76% unique. → `public_html/content/regions.php`
+- [ ] **Blog posts:** review the three drafts, then publish each by changing `draft: true` to `draft: false`. → `public_html/content/blog/*.md`
+
 ## 5. Brand and assets
 
 - [ ] **Original logo file:** the site uses an SVG rebuilt from your logo (`tools/make-logo.py`). Check it matches; the original PNG was not recoverable from the other session.
@@ -64,11 +69,13 @@ The forms are built and tested in test mode. Each feature switches on as soon as
 ## 6. Trust content (hidden until supplied)
 
 - [ ] **Testimonials, client logos or case studies**, with permission. Then set `SHOW_TESTIMONIALS => true`. → `public_html/content/testimonials.php`
-- [ ] **Founder / team bio and photo** for the About page (optional; hidden until supplied, Phase 6).
+- [ ] **Founder / team bio and photo** for the About page (optional). Add `public_html/content/team.php` and set `SHOW_TEAM => true`.
 
-## 7. Legal (Phase 6 drafts)
+## 7. Legal
 
-- [ ] Legal review of the privacy policy, cookie policy and terms before launch. Claude's drafts will be clearly marked as drafts, not legal advice.
+- [ ] **Legal review** of `/privacy`, `/cookies` and `/terms` before launch. The drafts cover UK GDPR and EU GDPR, Australia's Privacy Act, Singapore's PDPA, US state laws (e.g. CCPA/CPRA) and Sri Lanka's PDPA, but they are not legal advice. Each page shows a "Draft: pending legal review" notice until you set `LEGAL_REVIEWED => true` in `config.php`. → `public_html/content/legal/*.md`
+- [ ] **Name the providers** in the privacy and cookie policies once chosen (booking, CRM, chatbot, any ad pixels).
+- [ ] **Data retention periods** in the privacy policy (draft: enquiries kept up to 24 months).
 
 ## 8. Technical items deferred to later phases
 
@@ -76,7 +83,8 @@ The forms are built and tested in test mode. Each feature switches on as soon as
 - [x] "Get a quote" links pre-fill the contact form with the service or package.
 - [ ] **Phase 7:** the Content-Security-Policy must allow the third parties in use: `challenges.cloudflare.com` (Turnstile), `www.googletagmanager.com` / `www.google-analytics.com` (GA4), the booking domain and the chatbot domain.
 - [ ] **Phase 8:** send a real test lead on the live site and confirm it reaches n8n and the inbox.
-- [ ] **Phase 6:** About, How we work, regional pages, blog (with 3 draft posts) and legal pages. Until then these show a "Coming soon" page that is hidden from search engines.
+- [x] About, How we work, regional pages, blog (3 draft posts) and legal pages built; the temporary "Coming soon" pages are gone.
+- [ ] **Phase 7:** CSS is 57 KB against a 60 KB budget; tighten the bundle.
 - [ ] **Phase 7:** Open Graph images per area, package and industry (`assets/img/og/`); sitemap route; `llms.txt`; security headers (HSTS, Content-Security-Policy); `LAUNCH_CHECKLIST.md`.
 - [ ] **Phase 7:** remove the unused `world-dots-dark.svg` output, or keep it for other pages.
 - [ ] Save the brief into the repo as `BRIEF.md`.
