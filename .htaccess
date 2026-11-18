@@ -32,8 +32,9 @@ ServerSignature Off
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
-  # HSTS and the Content-Security-Policy are added in Phase 7, once HTTPS and the third parties are confirmed.
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(self), usb=()"
+  # HTML pages get their Content-Security-Policy (per-request nonces) and HSTS from PHP: app/security.php.
+  # Browsers apply HSTS to the whole host once any HTTPS page sends it.
 
   <FilesMatch "\.(woff2|svg|png|jpg|webp|ico)$">
     Header set Cache-Control "public, max-age=31536000, immutable"

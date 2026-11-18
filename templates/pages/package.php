@@ -9,10 +9,7 @@ $GLOBALS['page_meta'] = [
     'description' => mb_strimwidth($p['title'] . ' (' . $p['timeline'] . '): ' . human_list(array_slice($p['includes'], 0, 4)) . '. ' . $p['ideal_for'], 0, 155, '…'),
     'path' => $path,
     'image' => '/assets/img/og/' . $slug . '.png',
-    'schema' => [[
-        '@context' => 'https://schema.org', '@type' => 'Product', 'name' => $p['title'], 'description' => $p['ideal_for'] . ' Includes: ' . implode(', ', $p['includes']) . '.',
-        'brand' => ['@type' => 'Brand', 'name' => 'Webulex'], 'category' => 'Digital services package', 'url' => absolute_url($path),
-    ]],
+    'schema' => [schema_package($p['title'], $p['ideal_for'] . ' Includes: ' . implode(', ', $p['includes']) . '.', $path, $p['prices'] ?? null)],
 ];
 ?>
 <section class="page-hero">

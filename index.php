@@ -32,6 +32,15 @@ if ($rawPath !== '/' && str_ends_with($rawPath, '/')) {
     exit;
 }
 
+// Machine-readable feeds (generated from the content arrays).
+if ($path === '/sitemap.xml' || $path === '/llms.txt') {
+    require __DIR__ . '/app/feeds.php';
+    header($path === '/sitemap.xml' ? 'Content-Type: application/xml; charset=UTF-8' : 'Content-Type: text/plain; charset=UTF-8');
+    header('Cache-Control: public, max-age=3600');
+    echo $path === '/sitemap.xml' ? sitemap_xml() : llms_txt();
+    exit;
+}
+
 $match = route($path);
 http_response_code($match['status']);
 header('Content-Type: text/html; charset=UTF-8');
@@ -40,4 +49,5 @@ $body = render($match['template'], $match['vars']);
 $html = render('layout', $match['vars'] + ['body' => $body, 'meta' => $GLOBALS['page_meta'] ?? []]);
 // Pages with forms carry a per-visitor CSRF token, so they must never be cached.
 header(!empty($GLOBALS['page_meta']['forms']) ? 'Cache-Control: no-store' : 'Cache-Control: no-cache');
+send_security_headers();
 echo $html;

@@ -13,11 +13,11 @@ $cssFiles = is_file(APP_ROOT . '/assets/css/site.css') && !config('DEV')
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.documentElement.classList.replace('no-js','js')</script>
+<script nonce="<?= e(csp_nonce()) ?>">document.documentElement.classList.replace('no-js','js')</script>
 <?= seo($meta) ?>
 <meta name="theme-color" content="#141A4A">
 <?php if (config('GA4_ID')): ?>
-<script>
+<script nonce="<?= e(csp_nonce()) ?>">
 // Google Consent Mode v2: everything is denied until the visitor chooses. gtag.js itself is only loaded after consent.
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -25,7 +25,9 @@ gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_per
 window.WBX_GA4 = <?= json_encode((string) config('GA4_ID'), JSON_HEX_TAG) ?>;
 </script>
 <?php endif; ?>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="<?= e(asset('brand/favicon.svg')) ?>" type="image/svg+xml">
+<link rel="apple-touch-icon" href="<?= e(asset('brand/apple-touch-icon.png')) ?>">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/outfit-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>

@@ -85,7 +85,7 @@ $GLOBALS['page_meta'] = [
         </tbody>
       </table>
     </div>
-    <p class="table-note">Check-in windows are typical and agreed with each client. <!-- TODO(owner): confirm working hours --></p>
+    <p class="table-note">Check-in windows are typical and agreed with each client.<?php /* TODO(owner): confirm working hours */ ?></p>
   </div>
 </section>
 

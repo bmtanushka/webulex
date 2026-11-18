@@ -8,10 +8,7 @@ $GLOBALS['page_meta'] = [
     'description' => mb_strimwidth(implode(' ', $ind['headline']) . ' ' . $ind['intro'], 0, 155, '…'),
     'path' => $path,
     'image' => '/assets/img/og/' . $slug . '.png',
-    'schema' => array_map(static fn(array $t): array => [
-        '@context' => 'https://schema.org', '@type' => 'Product', 'name' => $t['name'] . ' (' . $ind['title'] . ')',
-        'description' => $t['tagline'] . '. ' . $t['ideal'], 'brand' => ['@type' => 'Brand', 'name' => 'Webulex'], 'url' => absolute_url($path),
-    ], $ind['tiers']),
+    'schema' => array_map(static fn(array $t): array => schema_package($t['name'] . ' (' . $ind['title'] . ')', $t['tagline'] . '. ' . $t['ideal'], $path, $t['prices'] ?? null), $ind['tiers']),
 ];
 $hasArt = is_file(APP_ROOT . '/assets/illustrations/' . $ind['illustration'] . '.svg');
 ?>
