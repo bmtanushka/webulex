@@ -12,6 +12,8 @@ require dirname(__DIR__) . '/app/bootstrap.php';
 require dirname(__DIR__) . '/app/forms.php';
 
 header('X-Robots-Tag: noindex');
+header('X-Content-Type-Options: nosniff');
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'");
 header('Cache-Control: no-store');
 
 $wantsJson = str_contains((string) ($_SERVER['HTTP_ACCEPT'] ?? ''), 'application/json');

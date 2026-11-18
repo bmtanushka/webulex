@@ -3,8 +3,8 @@
 Everything that is waiting on the owner, or deferred until later, in one place.
 Tick items off as they are done. Updated at the end of every build phase.
 
-**Build progress:** Phases 1–6 done (foundation, home, services, packages and industries, contact and forms, content and trust pages).
-Next: Phase 7 (SEO, AIEO and hardening) → 8 (deploy).
+**Build progress:** Phases 1–7 done (everything in the brief is built and tested locally).
+Next: Phase 8 (deploy to Hostinger). See also **LAUNCH_CHECKLIST.md** for the technical go-live list and every `TODO(owner)` / `REVIEW(owner)` marker in the code.
 
 ---
 
@@ -63,7 +63,7 @@ The forms are built and tested in test mode. Each feature switches on as soon as
 
 - [ ] **Original logo file:** the site uses an SVG rebuilt from your logo (`tools/make-logo.py`). Check it matches; the original PNG was not recoverable from the other session.
 - [ ] **Industry illustrations** (cleaning, handyman, sole traders), plus booking, global and contact. Pages currently use icon-based art. Either: download unDraw SVGs yourself into `public_html/assets/illustrations/` with the names in the brief §6.6, or ask Claude to draw more in `tools/draw-illustrations.mjs`.
-- [ ] **Favicon / app icon:** an SVG favicon is generated; supply a PNG/ICO version if you want one for older browsers.
+- [x] Favicon (SVG + ICO) and app icons (180, 192, 512 px) generated from the logo mark. Replace them if you have an official icon.
 - [ ] **Social media profile URLs** (Facebook, Instagram, LinkedIn, X, YouTube). → `public_html/content/site.php`
 
 ## 6. Trust content (hidden until supplied)
@@ -81,11 +81,11 @@ The forms are built and tested in test mode. Each feature switches on as soon as
 
 - [x] PHPMailer and Parsedown installed in `public_html/vendor/` (trimmed to 856 KB by `tools/clean-vendor.php`).
 - [x] "Get a quote" links pre-fill the contact form with the service or package.
-- [ ] **Phase 7:** the Content-Security-Policy must allow the third parties in use: `challenges.cloudflare.com` (Turnstile), `www.googletagmanager.com` / `www.google-analytics.com` (GA4), the booking domain and the chatbot domain.
+- [x] The Content-Security-Policy adds Turnstile, GA4, the booking domain and the chatbot domain automatically when their keys are in `config.php`. If a chatbot needs extra hosts, add them with `CSP_EXTRA` (see `app/security.php`).
 - [ ] **Phase 8:** send a real test lead on the live site and confirm it reaches n8n and the inbox.
 - [x] About, How we work, regional pages, blog (3 draft posts) and legal pages built; the temporary "Coming soon" pages are gone.
-- [ ] **Phase 7:** CSS is 57 KB against a 60 KB budget; tighten the bundle.
-- [ ] **Phase 7:** Open Graph images per area, package and industry (`assets/img/og/`); sitemap route; `llms.txt`; security headers (HSTS, Content-Security-Policy); `LAUNCH_CHECKLIST.md`.
-- [ ] **Phase 7:** remove the unused `world-dots-dark.svg` output, or keep it for other pages.
-- [ ] Save the brief into the repo as `BRIEF.md`.
+- [x] Asset budgets met: CSS 57 KB (12 KB compressed, budget 60 KB), JavaScript 21 KB (budget 30 KB).
+- [x] Share images (13), sitemap, `llms.txt`, security headers with a nonce-based Content-Security-Policy, favicon and app icons, `LAUNCH_CHECKLIST.md`.
+- [ ] Save the brief into the repo as `BRIEF.md` (paste it in, or ask Claude to add it from the conversation).
+- [ ] **Share images:** check the 13 images in `public_html/assets/img/og/`. Regenerate after title changes with `node tools/make-og.cjs` then `python3 tools/shrink-png.py public_html/assets/img/og/*.png`.
 - [ ] Re-measure Lighthouse on the live site after deploy (local scores: 100 across the board on every page type built so far).

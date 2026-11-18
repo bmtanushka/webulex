@@ -1,6 +1,6 @@
 // Local-only: generates the dotted world map SVGs used in the hero and About page.
 // Run: node tools/make-world-map.cjs   (from the project root)
-// Output: public_html/assets/img/world-dots-dark.svg and world-dots-light.svg
+// Output: public_html/assets/img/world-dots-light.svg, world-dots-mask.svg and templates/partials/world-pins.php
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -72,7 +72,7 @@ ${pinsSvg}
 
 const out = path.join(__dirname, '..', 'public_html', 'assets', 'img');
 fs.mkdirSync(out, { recursive: true });
-for (const t of ['dark', 'light']) {
+for (const t of ['light']) {
   const file = path.join(out, `world-dots-${t}.svg`);
   fs.writeFileSync(file, build(t));
   console.log(file, (fs.statSync(file).size / 1024).toFixed(1) + ' KB', pts.length + ' dots');

@@ -337,13 +337,15 @@
 .compare__yes { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--cyan-500); color: var(--navy-900); }
 .compare__yes .icon { width: 15px; height: 15px; stroke-width: 3; }
 .compare__no { color: var(--ink-500); }
-.compare__tabs { display: flex; gap: .4rem; margin-bottom: 1rem; padding: .3rem; border-radius: var(--pill); background: var(--white); box-shadow: 0 0 0 1px var(--line); }
+.compare__tabs { gap: .4rem; margin-bottom: 1rem; padding: .3rem; border-radius: var(--pill); background: var(--white); box-shadow: 0 0 0 1px var(--line); }
 .compare__tab { flex: 1; min-height: 44px; border: 0; border-radius: var(--pill); background: none; font-weight: 600; font-size: .9rem; color: var(--navy-500); cursor: pointer; }
 .compare__tab[aria-selected="true"] { background: var(--navy-500); color: var(--white); }
+.compare__tabs { display: none; }
 @media (max-width: 767px) {
-  .compare.is-tabbed .compare__table { min-width: 0; }
-  .compare.is-tabbed .compare__table [data-col]:not(.is-active) { display: none; }
-  .compare.is-tabbed .compare__table td { width: 64px; }
+  .js .compare__tabs { display: flex; }
+  .js .compare__table { min-width: 0; }
+  .js .compare__table [data-col]:not(.is-active) { display: none; }
+  .js .compare__table td { width: 64px; }
 }
 
 /* Industry hero art (shown until an industry illustration exists) */

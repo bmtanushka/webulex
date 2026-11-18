@@ -31,6 +31,7 @@ function applyConsent(c) {
     gaLoaded = true;
     const s = document.createElement('script');
     s.async = true;
+    s.nonce = document.querySelector('script[nonce]')?.nonce || '';
     s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(window.WBX_GA4)}`;
     document.head.appendChild(s);
     window.gtag('js', new Date());

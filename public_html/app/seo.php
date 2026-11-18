@@ -14,7 +14,11 @@ function seo(array $meta): string
     $description = (string) ($meta['description'] ?? site('default_description'));
     $path = (string) ($meta['path'] ?? current_path());
     $canonical = absolute_url($path);
-    $image = absolute_url((string) ($meta['image'] ?? '/assets/img/og/default.png'));
+    $imagePath = (string) ($meta['image'] ?? '/assets/img/og/default.png');
+    if (!is_file(APP_ROOT . $imagePath)) {
+        $imagePath = '/assets/img/og/default.png';
+    }
+    $image = absolute_url($imagePath);
 
     $out = [];
     $out[] = '<title>' . e($title) . '</title>';
@@ -30,6 +34,9 @@ function seo(array $meta): string
     $out[] = '<meta property="og:description" content="' . e($description) . '">';
     $out[] = '<meta property="og:url" content="' . e($canonical) . '">';
     $out[] = '<meta property="og:image" content="' . e($image) . '">';
+    $out[] = '<meta property="og:image:width" content="1200">';
+    $out[] = '<meta property="og:image:height" content="630">';
+    $out[] = '<meta property="og:image:alt" content="' . e($title) . '">';
     $out[] = '<meta property="og:locale" content="' . e(str_replace('-', '_', (string) ($meta['lang'] ?? 'en-GB'))) . '">';
     foreach ((array) ($meta['alternates'] ?? []) as $hreflang => $altPath) {
         $out[] = '<link rel="alternate" hreflang="' . e((string) $hreflang) . '" href="' . e(absolute_url((string) $altPath)) . '">';
@@ -56,7 +63,8 @@ function schema_organization(): array
         'name' => $s['trading_name'],
         'legalName' => $s['legal_name'],
         'url' => absolute_url('/'),
-        'logo' => absolute_url('/assets/brand/webulex-logo.png'),
+        'logo' => absolute_url('/assets/brand/icon-512.png'),
+        'image' => absolute_url('/assets/img/og/default.png'),
         'email' => $s['email'],
         'telephone' => $s['phone_e164'],
         'slogan' => $s['tagline'],
@@ -80,4 +88,19 @@ function region_alternates(): array
     }
     $alts['x-default'] = '/';
     return $alts;
+}
+
+/** Schema for a package or tier: a Service offered by Webulex, with an Offer that has no price until prices exist. */
+function schema_package(string $name, string $description, string $path, ?array $prices = null): array
+{
+    $offer = ['@type' => 'Offer', 'url' => absolute_url($path), 'availability' => 'https://schema.org/InStock', 'seller' => ['@id' => absolute_url('/') . '#organization']];
+    if (feature('SHOW_PRICES') && $prices) {
+        $offer['priceCurrency'] = (string) array_key_first($prices);
+        $offer['price'] = (string) reset($prices);
+    }
+    return [
+        '@context' => 'https://schema.org', '@type' => 'Service', 'name' => $name, 'description' => $description,
+        'url' => absolute_url($path), 'provider' => ['@id' => absolute_url('/') . '#organization'],
+        'areaServed' => ['US', 'GB', 'SG', 'AU', 'LK'], 'offers' => $offer,
+    ];
 }

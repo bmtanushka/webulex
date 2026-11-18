@@ -40,4 +40,5 @@ if (session_status() === PHP_SESSION_NONE && PHP_SAPI !== 'cli') {
 
 require __DIR__ . '/helpers.php';
 require __DIR__ . '/seo.php';
+require __DIR__ . '/security.php';
 require __DIR__ . '/router.php';

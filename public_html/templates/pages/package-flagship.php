@@ -8,10 +8,7 @@ $GLOBALS['page_meta'] = [
     'description' => 'Website, booking, SEO, AIEO, Google and social ads, AI chatbot, call agent and CRM, delivered month by month in four months by one team.',
     'path' => $path,
     'image' => '/assets/img/og/' . $slug . '.png',
-    'schema' => [[
-        '@context' => 'https://schema.org', '@type' => 'Product', 'name' => $p['title'], 'description' => $p['intro'],
-        'brand' => ['@type' => 'Brand', 'name' => 'Webulex'], 'category' => 'Digital marketing and automation package', 'url' => absolute_url($path),
-    ]],
+    'schema' => [schema_package($p['title'], $p['intro'], $path, $p['prices'] ?? null)],
 ];
 ?>
 <section class="page-hero">

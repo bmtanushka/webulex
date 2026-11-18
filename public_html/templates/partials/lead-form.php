@@ -171,5 +171,5 @@ if ($qService) {
 </form>
 <template data-success-template><?= partial('form-success') ?></template>
 <?php if ($siteKey !== '' && !config('FORM_TEST_MODE')): ?>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" nonce="<?= e(csp_nonce()) ?>" async defer></script>
 <?php endif; ?>

@@ -33,4 +33,8 @@ return [
     'BOOKING_URL' => '',            // Cal.com or Calendly link
     'CHATBOT_SCRIPT_URL' => '',
     'GA4_ID' => '',                 // G-XXXXXXX
+
+    // Extra hosts for the Content-Security-Policy, if a chatbot or embed needs more than its own domain, e.g.
+    // 'CSP_EXTRA' => ['connect-src' => ['wss://chat.example.com'], 'img-src' => ['https://cdn.example.com']],
+    'CSP_EXTRA' => [],
 ];

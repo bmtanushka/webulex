@@ -87,6 +87,20 @@ const check = (ok, msg) => {
     }
   }
 
+  // Feeds and security headers
+  let res = await page.request.get(BASE + '/sitemap.xml');
+  const xml = await res.text();
+  check(res.status() === 200 && (res.headers()['content-type'] || '').includes('xml') && (xml.match(/<url>/g) || []).length >= 50, `sitemap.xml lists ${(xml.match(/<url>/g) || []).length} pages`);
+  check(!xml.includes('/blog/what-is-aieo'), 'draft posts are not in the sitemap');
+  res = await page.request.get(BASE + '/llms.txt');
+  check(res.status() === 200 && (await res.text()).startsWith('# Webulex'), 'llms.txt is served');
+  res = await page.request.get(BASE + '/');
+  const h = res.headers();
+  check((h['content-security-policy'] || '').includes("nonce-") && (h['content-security-policy'] || '').includes("object-src 'none'"), 'home sends a Content-Security-Policy with a nonce');
+  check(h['x-content-type-options'] === 'nosniff' && !!h['referrer-policy'] && !!h['permissions-policy'], 'home sends the other security headers');
+  const og = await page.goto(BASE + '/industries/sole-traders').then(() => page.getAttribute('meta[property="og:image"]', 'content'));
+  check(og.endsWith('/assets/img/og/sole-traders.png') && (await page.request.get(BASE + '/assets/img/og/sole-traders.png')).status() === 200, 'pages point to their own share image');
+
   // hreflang only between home and regional pages; US page uses en-US
   await page.goto(BASE + '/regions/us');
   check((await page.getAttribute('html', 'lang')) === 'en-US' && (await page.locator('link[hreflang]').count()) === 5, 'US page is en-US with 5 hreflang links');
