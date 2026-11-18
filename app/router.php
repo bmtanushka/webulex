@@ -14,6 +14,8 @@ function route(string $path): array
         '/industries' => ['pages/industries', ['page_name' => 'Industries']],
         '/contact' => ['pages/contact', ['page_name' => 'Contact']],
         '/free-consultation' => ['pages/free-consultation', ['page_name' => 'Free consultation']],
+        '/how-we-work' => ['pages/how-we-work', ['page_name' => 'How we work']],
+        '/about' => ['pages/about', ['page_name' => 'About']],
     ];
 
     if (isset($static[$path])) {
@@ -32,6 +34,26 @@ function route(string $path): array
         }
     }
 
+    if (in_array($path, ['/privacy', '/terms', '/cookies'], true)) {
+        return ['template' => 'pages/legal', 'vars' => ['doc' => ltrim($path, '/'), 'page_name' => ucfirst(ltrim($path, '/'))], 'status' => 200];
+    }
+
+    // /blog and /blog/{slug} (drafts are reachable by URL for review, marked noindex)
+    if ($path === '/blog') {
+        return ['template' => 'pages/blog', 'vars' => ['page_name' => 'Blog'], 'status' => 200];
+    }
+    if (preg_match('#^/blog/([a-z0-9-]+)$#', $path, $m)) {
+        require_once APP_ROOT . '/app/blog.php';
+        if (isset(blog_all()[$m[1]])) {
+            return ['template' => 'pages/post', 'vars' => ['post' => blog_all()[$m[1]], 'page_name' => blog_all()[$m[1]]['title']], 'status' => 200];
+        }
+    }
+
+    // /regions/{code}
+    if (preg_match('#^/regions/([a-z]{2})$#', $path, $m) && isset(content('regions')[$m[1]])) {
+        return ['template' => 'pages/region', 'vars' => ['code' => $m[1], 'region' => content('regions')[$m[1]], 'page_name' => content('regions')[$m[1]]['name']], 'status' => 200];
+    }
+
     // /packages/{slug}
     if (preg_match('#^/packages/([a-z0-9-]+)$#', $path, $m) && isset(content('packages')[$m[1]])) {
         $p = content('packages')[$m[1]];
@@ -44,30 +66,5 @@ function route(string $path): array
         return ['template' => 'pages/industry', 'vars' => ['slug' => $m[1], 'industry' => $i, 'page_name' => $i['title']], 'status' => 200];
     }
 
-    // Pages planned for later phases. Shown as a noindex "coming soon" page during the build
-    // so the navigation can be reviewed. Each one is replaced by its real template in its phase.
-    $planned = planned_pages();
-    if (isset($planned[$path])) {
-        return ['template' => 'pages/placeholder', 'vars' => ['page_title' => $planned[$path], 'page_name' => $planned[$path]], 'status' => 200];
-    }
-
     return ['template' => 'pages/404', 'vars' => ['page_name' => 'Page not found'], 'status' => 404];
-}
-
-/** @return array<string,string> path => page title */
-function planned_pages(): array
-{
-    $pages = [
-        '/how-we-work' => 'How we work',
-        '/about' => 'About Webulex',
-        '/blog' => 'Blog',
-        '/privacy' => 'Privacy policy',
-        '/terms' => 'Terms of use',
-        '/cookies' => 'Cookie policy',
-        '/regions/us' => 'United States',
-        '/regions/uk' => 'United Kingdom',
-        '/regions/sg' => 'Singapore',
-        '/regions/au' => 'Australia',
-    ];
-    return $pages;
 }

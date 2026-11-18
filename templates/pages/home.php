@@ -5,6 +5,7 @@ $GLOBALS['page_meta'] = [
     'title' => 'Webulex | Websites, SEO, Ads & AI Automation',
     'description' => 'Websites, SEO, AIEO, ads and AI automation for small businesses in the US, UK, Singapore and Australia. One accountable team. Book a free consultation.',
     'path' => '/',
+    'alternates' => region_alternates(),
     'schema' => [[
         '@context' => 'https://schema.org',
         '@type' => 'WebSite',

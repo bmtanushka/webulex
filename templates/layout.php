@@ -9,7 +9,7 @@ $cssFiles = is_file(APP_ROOT . '/assets/css/site.css') && !config('DEV')
     : ['base.css', 'layout.css', 'components.css', 'pages.css'];
 ?>
 <!doctype html>
-<html lang="en-GB" class="no-js">
+<html lang="<?= e((string) ($meta['lang'] ?? 'en-GB')) ?>" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
