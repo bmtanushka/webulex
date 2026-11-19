@@ -53,4 +53,4 @@ These terms are governed by the laws of Sri Lanka. If you are a consumer, you ma
 
 ## Contact
 
-Questions about these terms? Email info@webulexpro.com or call +94 77 227 5760.
+Questions about these terms? Email info@webulexpro.com or call +94 77 727 5760.

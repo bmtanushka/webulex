@@ -10,7 +10,7 @@ This policy explains how **Webulex Technology & Accounting Solutions (PVT) Ltd**
 
 Webulex Technology & Accounting Solutions (PVT) Ltd is a company registered in Sri Lanka (Reg. PV00237882), at 285/6, Sudarshana Mawatha, Malabe 10115, Sri Lanka. We are the controller of the personal information described in this policy.
 
-For any privacy question or request, email **info@webulexpro.com** or call **+94 77 227 5760**.
+For any privacy question or request, email **info@webulexpro.com** or call **+94 77 727 5760**.
 
 ## What we collect
 
