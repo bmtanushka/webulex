@@ -136,7 +136,13 @@ export function initForms() {
       if (label) label.textContent = 'Sending…';
       try {
         const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, credentials: 'same-origin' });
-        const json = await res.json();
+        let json;
+        try {
+          json = await res.json();
+        } catch {
+          // Not JSON (e.g. a proxy error page). Don't re-post: the server may already have saved the lead.
+          json = { ok: false, errors: {}, message: "Sorry, something went wrong sending your message. Please email info@webulexpro.com or message us on WhatsApp." };
+        }
         if (json.ok) {
           track('generate_lead', { form_type: form.querySelector('[name="form_type"]')?.value, package: form.querySelector('[name="package"]')?.value || undefined });
           const tpl = form.parentElement?.querySelector('[data-success-template]') || document.querySelector('[data-success-template]');
