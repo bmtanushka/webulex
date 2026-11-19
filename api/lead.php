@@ -81,9 +81,11 @@ if (!config('FORM_TEST_MODE') && !verify_turnstile((string) ($_POST['cf-turnstil
     respond(false, 422, 'Please complete the security check and send the form again.', ['turnstile' => 'Please complete the security check.'], $old, $back, $wantsJson);
 }
 
-// 6. Deliver (n8n, email; private log as last resort)
+// 6. Deliver (n8n, email; private log as last resort).
+// A delivery failure is answered with 200 + ok:false (not 5xx) so proxies such as Cloudflare never swap
+// our helpful message for their own error page. The lead is already saved to storage/logs/failed-leads.log.
 if (!deliver_lead($data)) {
-    respond(false, 502, "Sorry, we couldn't send your message just now. Please email " . site('email') . ' or message us on WhatsApp on ' . site('phone_display') . '.', [], $old, $back, $wantsJson);
+    respond(false, 200, "Sorry, we couldn't send your message just now. Please email " . site('email') . ' or message us on WhatsApp on ' . site('phone_display') . '.', [], $old, $back, $wantsJson);
 }
 
 respond(true, 200, "Thanks, we've got your message. We'll reply within one business day.", [], [], $back, $wantsJson);
